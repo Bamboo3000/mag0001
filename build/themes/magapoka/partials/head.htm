@@ -5,12 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Meta title -->
 	<title>
-		{% if record.meta_title %}
-			{{ record.meta_title }}
-		{% elseif record.title %}
-			{{ record.title }} | Maga Poka
-		{% elseif categoryName.category_name %}
-			{{ categoryName.category_name }} {{ 'jobs'|_ }} | Maga Poka Blog
+		{% if post.title %}
+			{{ post.title }} | Maga Poka Blog
 		{% elseif this.page.meta_title %}
 			{{ this.page.meta_title }}
 		{% else %}
@@ -26,8 +22,8 @@
     })(window,document,'script','dataLayer','GTM-K3D3L3D');</script>
      /Google Tag Manager -->
 	<!-- Meta description -->
-	{% if record.meta_description %}
-		<meta name="description" content="{{ record.meta_description }}">
+	{% if post.summary %}
+		<meta name="description" content="{{ post.summary|raw }}">
 	{% elseif record.excerpt %}
 		<meta name="description" content="{{ record.excerpt|striptags|slice(0, 160) }}">
 	{% elseif record.summary %}
