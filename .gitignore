@@ -1,0 +1,16 @@
+/prototype/node_modules
+/build/node_modules
+/prototype/.sass-cache
+!/.gitignore
+/design
+/build/composer.lock
+/build/*
+!/build/themes/magapoka
+!/build/plugins/magapoka
+!/build/plugins/magapoka/*
+/build/themes/magapoka/content
+/build/themes/magapoka/content/*
+/build/themes/magapoka/meta
+/build/themes/magapoka/meta/*
+/.DS_Store
+**/.DS_Store
