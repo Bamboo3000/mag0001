@@ -1,0 +1,18 @@
+description = "Blog detail page"
+
+[staticMenu mainMenu]
+code = "main-menu"
+
+[staticPage]
+
+[localePicker]
+forceUrl = 1
+==
+{% set post = blogPost.post %}
+
+{% partial 'head' %}
+{% partial 'navigation' %}
+
+{% page %}
+
+{% partial 'footer' %}

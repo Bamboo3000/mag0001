@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="{{ activeLocale }}">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Meta title -->
+	<title>
+		{% if record.meta_title %}
+			{{ record.meta_title }}
+		{% elseif record.title %}
+			{{ record.title }} | Maga Poka
+		{% elseif categoryName.category_name %}
+			{{ categoryName.category_name }} {{ 'jobs'|_ }} | Maga Poka Blog
+		{% elseif this.page.meta_title %}
+			{{ this.page.meta_title }}
+		{% else %}
+			{{ this.page.title }} | Maga Poka Blog
+		{% endif %}
+	</title>
+	<!-- /Meta title -->
+	<!-- Google Tag Manager
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K3D3L3D');</script>
+     /Google Tag Manager -->
+	<!-- Meta description -->
+	{% if record.meta_description %}
+		<meta name="description" content="{{ record.meta_description }}">
+	{% elseif record.excerpt %}
+		<meta name="description" content="{{ record.excerpt|striptags|slice(0, 160) }}">
+	{% elseif record.summary %}
+		<meta name="description" content="{{ record.summary|striptags|slice(0, 160) }}">
+	{% elseif this.page.meta_description %}
+		<meta name="description" content="{{ this.page.meta_description }}">
+	{% endif %}
+	<!-- /Meta description -->
+	<!-- Other meta -->
+	{% if record.meta_keywords %}
+		<meta name="keywords" content"{{ record.meta_keywords }}">
+	{% endif %}
+	<meta name="author" content="Maga Poka Blog">
+	<meta name="generator" content="Maga Poka Blog">
+	{% if ''|page %}
+		<link rel="canonical" href="{{ ''|page }}" />
+	{% else %}
+		<link rel="canonical" href="{{ url('/') }}/{{ activeLocale }}{{ this.page.url }}" />
+	{% endif %}
+	{% if pagination.lastPage > 1 %}
+		{% if pagination.currentPage > 1 %}
+			<link rel="prev" href="{{ pagination.url(pagination.currentPage-1) }}">
+		{% endif %}
+		{% if pagination.lastPage > pagination.currentPage %}
+			<link rel="next" href="{{ pagination.url(pagination.currentPage+1) }}">
+		{% endif %}
+	{% endif %}
+	<!-- /Other meta -->
+	<!-- hreflangs -->
+	{% if hreflang_en and hreflang_nl %}
+		<link rel="alternate" hreflang="en" href="{{ url('/') }}/en/{{ hreflang_en }}" />
+		<link rel="alternate" hreflang="pl" href="{{ url('/') }}/pl/{{ hreflang_nl }}" />
+		<link rel="alternate" hreflang="x-default" href="{{ url('/') }}/en/{{ hreflang_en }}" />
+	{% elseif this.param.category %}
+		<link rel="alternate" hreflang="en" href="{{ url('/') }}/en/blog/{{ this.param.category }}" />
+		<link rel="alternate" hreflang="pl" href="{{ url('/') }}/pl/blog/{{ this.param.category }}" />
+		<link rel="alternate" hreflang="x-default" href="{{ url('/') }}/en/blog/{{ this.param.category }}" />
+	{% elseif this.param.slug %}
+		<link rel="alternate" hreflang="en" href="{{ url('/') }}/en/job/{{ this.param.slug }}" />
+		<link rel="alternate" hreflang="pl" href="{{ url('/') }}/pl/vacature/{{ this.param.slug }}" />
+		<link rel="alternate" hreflang="x-default" href="{{ url('/') }}/en/job/{{ this.param.slug }}" />
+	{% elseif jobs %}
+		<link rel="alternate" hreflang="en" href="{{ url('/') }}/en/jobs" />
+		<link rel="alternate" hreflang="pl" href="{{ url('/') }}/pl/vacatures" />
+		<link rel="alternate" hreflang="x-default" href="{{ url('/') }}/en/jobs" />
+	{% else %}
+		<link rel="alternate" hreflang="en" href="{{ url('/') }}/en" />
+		<link rel="alternate" hreflang="pl" href="{{ url('/') }}/pl" />
+		<link rel="alternate" hreflang="x-default" href="{{ url('/') }}/en" />
+	{% endif %}
+	<!-- /hreflangs -->
+	<!-- Favicons -->
+	<link rel="apple-touch-icon" sizes="57x57" href="{{ 'assets/img/favicon/apple-icon-57x57.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{{ 'assets/img/favicon/apple-icon-60x60.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{{ 'assets/img/favicon/apple-icon-72x72.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{{ 'assets/img/favicon/apple-icon-76x76.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{{ 'assets/img/favicon/apple-icon-114x114.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{{ 'assets/img/favicon/apple-icon-120x120.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{{ 'assets/img/favicon/apple-icon-144x144.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{{ 'assets/img/favicon/apple-icon-152x152.png'|theme }}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/img/favicon/apple-icon-180x180.png'|theme }}">
+	<link rel="icon" type="image/png" sizes="192x192"  href="{{ 'assets/img/favicon/android-icon-192x192.png'|theme }}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ 'assets/img/favicon/favicon-32x32.png'|theme }}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{{ 'assets/img/favicon/favicon-96x96.png'|theme }}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ 'assets/img/favicon/favicon-16x16.png'|theme }}">
+	<link rel="manifest" href="{{ 'assets/img/favicon/manifest.json'|theme }}">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="{{ 'assets/img/favicon/ms-icon-144x144.png'|theme }}">
+	<meta name="theme-color" content="#ffffff">
+	<!-- /Favicons -->
+	<!-- OG Tags -->
+		<meta property="og:site_name" content="Maga Poka Blog"/>
+		{% if record.meta_title %}
+			<meta property="og:title" content="{{ record.meta_title }}"/>
+		{% elseif record.title %}
+			<meta property="og:title" content="{{ record.title }} | Maga Poka Blog"/>
+		{% elseif this.page.meta_title %}
+			<meta property="og:title" content="{{ this.page.meta_title }}"/>
+		{% else %}
+			<meta property="og:title" content="{{ this.page.title }} | Maga Poka Blog"/>
+		{% endif %}
+		{% if record.slug %}
+			<meta property="og:url" content="{{ this.page.id | page }}"/>
+		{% else %}
+			<meta property="og:url" content="{{ url('/') }}/{{ activeLocale }}{{ this.page.url }}"/>
+		{% endif %}
+		<meta property="og:type" content="website" />
+		{% if record.meta_description %}
+			<meta property="og:description" content="{{ record.meta_description }}"/>
+		{% elseif record.summary %}
+			<meta property="og:description" content="{{ record.summary|striptags|slice(0, 160) }}"/>
+		{% elseif this.page.meta_description %}
+			<meta property="og:description" content="{{ this.page.meta_description }}"/>
+		{% endif %}
+		<meta property="og:image:url" content="{{ 'assets/img/logo.jpg'|theme }}"/>
+		<meta property="og:image:secure_url" content="{{ 'assets/img/logo.jpg'|theme }}"/>
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="850" />
+		<meta property="og:image:height" content="300" />
+	<!-- /OG Tags -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,400i,600,700|Libre+Baskerville:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" href="{{ [
+        'assets/css/prototype.css',
+        '@framework.extras'
+    ]|theme }}">
+</head>
+<body>
+	<!-- Google Tag Manager (noscript)
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K3D3L3D" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	 /Google Tag Manager (noscript) -->
+	<div id="wrapper">
