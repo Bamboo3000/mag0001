@@ -5,7 +5,7 @@
             <img class="bg-cover" src="{{ 'assets/img/magda.jpg'|theme|resize(300) }}" alt="">
         </picture>
     </div>
-    <div class="searchbox">
+    <div class="sidebar-search">
         <i class="material-icons search-btn" aria-hidden="true" onclick="openSearch(this)">search</i>
         <form 
             class="search-field" 
@@ -16,7 +16,7 @@
             <input type="submit" style="display:none;">
         </form>
     </div>
-    <div class="categories">
+    <div class="sidebar-categories">
         {% if blogCategories.categories %}
             <ul class="category-list">
                 {% partial blogCategories ~ "::items"

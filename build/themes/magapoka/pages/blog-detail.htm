@@ -23,13 +23,12 @@ categoryPage = "blog/category"
             <article>
             
                 <p class="info">
-                    Posted
-                    {% if post.categories.count %} in
+                    {% if post.categories.count %}
                         {% for category in post.categories %}
                             <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     {% endif %}
-                    on {{ post.published_at|date('M d, Y') }}
+                    {{ post.published_at|date('F jS, Y') }}
                 </p>
 
                 <h1>

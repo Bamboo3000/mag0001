@@ -38,8 +38,6 @@ categoryPage = "blog/category"
 </a> -->
 <div class="container home__container">
 
-    {% partial 'aside-general' %}
-
     <main class="home__blog">
         {% for post in posts %}
             {% if loop.first %}
@@ -77,16 +75,12 @@ categoryPage = "blog/category"
                         {% endif %}
                     </div>
                     <div class="text">
-                        <!-- <p class="info">
-                            {{ 'Posted'|_ }}
-                            {% if post.categories.count %} 
-                                {{ 'in'|_ }} 
-                            {% endif %}
+                        <p class="info">
                             {% for category in post.categories %}
                                 <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
                             {% endfor %}
-                            {{ 'on'|_ }} {{ post.published_at|date('F jS, Y') }}
-                        </p> -->
+                            {{ post.published_at|date('F jS, Y') }}
+                        </p>
                         <h3>
                             <a href="/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
                         </h3>
@@ -99,6 +93,8 @@ categoryPage = "blog/category"
             {{ noPostsMessage }}
         {% endfor %}
     </main>
+
+    {% partial 'aside-general' %}
 
 </div>
 
