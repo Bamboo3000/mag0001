@@ -15,38 +15,7 @@ categoryPage = "blog/category"
 
 <div class="container">
 
-    {% if post.featured_images.count %}
-        <picture class="bg-cover">
-            <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(1200) }}">
-            <img class="bg-cover" src="{{ post.featured_images[0].path|resize(1200) }}" alt="{{ post.featured_images[0].description }}">
-        </picture>
-    {% endif %}
-
     <section class="blog__post">
-
-        <main>
-            <article>
-            
-                <h1>
-                    {{ post.title }}
-                </h1>
-                
-                <p class="info">
-                    Posted
-                    {% if post.categories.count %} in
-                        {% for category in post.categories %}
-                            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                    on {{ post.published_at|date('M d, Y') }}
-                </p>
-                
-                <div class="content">
-                    {{ post.content_html|raw }}
-                </div>
-
-            </article>
-        </main>
 
         <aside>
             <div class="searchbox">
@@ -71,6 +40,37 @@ categoryPage = "blog/category"
                 {% endif %}
             </div>
         </aside>
+
+        <main>
+            <article>
+            
+                <p class="info">
+                    Posted
+                    {% if post.categories.count %} in
+                        {% for category in post.categories %}
+                            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    on {{ post.published_at|date('M d, Y') }}
+                </p>
+
+                <h1>
+                    {{ post.title }}
+                </h1>
+
+                {% if post.featured_images.count %}
+                    <picture class="bg-cover">
+                        <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(1200) }}">
+                        <img class="bg-cover" src="{{ post.featured_images[0].path|resize(1200) }}" alt="{{ post.featured_images[0].description }}">
+                    </picture>
+                {% endif %}
+                
+                <div class="content">
+                    {{ post.content_html|raw }}
+                </div>
+
+            </article>
+        </main>
 
     </section>
 
