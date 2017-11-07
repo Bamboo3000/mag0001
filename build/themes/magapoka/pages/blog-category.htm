@@ -1,0 +1,137 @@
+title = "Blog Category"
+layout = "blog-category"
+url = "/blog/category/:slug/:page?"
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "{{ :slug }}"
+postsPerPage = "10"
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "blog/category"
+postPage = "blog/post"
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = 0
+categoryPage = "blog/category"
+==
+function onEnd()
+{
+    // dd($this->page);
+    // Optional - set the page title to the category name
+    if ($this->category)
+        $this->page->title = $this->category->name;
+}
+==
+{% set posts = blogPosts.posts %}
+
+<div class="container home__container">
+        
+    <aside class="home__sidebar">
+        <div class="searchbox">
+            <i class="material-icons search-btn" aria-hidden="true" onclick="openSearch(this)">search</i>
+            <form 
+                class="search-field" 
+                id="search-field-general"
+                data-request="onSearchRedirect"
+            >
+                <input type="search" name="search-input" id="search-field-general-input" placeholder="{{ 'Job search'|_ }}" onblur="hideSearch()" tabindex="-1">
+                <input type="submit" style="display:none;">
+            </form>
+        </div>
+        <div class="categories">
+            {% if blogCategories.categories %}
+                <ul class="category-list">
+                    {% partial blogCategories ~ "::items"
+                        categories = blogCategories.categories
+                        currentCategorySlug = blogCategories.currentCategorySlug
+                    %}
+                </ul>
+            {% endif %}
+        </div>
+    </aside>
+
+    <main class="home__blog">
+        {% for post in posts %}
+            {% if loop.first %}
+                <div class="home__blog-item">
+                    <p class="info">
+                        {{ 'Posted'|_ }}
+                        {% if post.categories.count %} 
+                            {{ 'in'|_ }} 
+                        {% endif %}
+                        {% for category in post.categories %}
+                            <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                        {{ 'on'|_ }} {{ post.published_at|date('F jS, Y') }}
+                    </p>
+                    <h3>
+                        <a href="/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
+                    </h3>
+                    {% if post.featured_images.count %}
+                        <a href="/blog/post/{{ post.slug }}">
+                            <picture class="bg-cover">
+                                <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(900) }}">
+                                <img class="bg-cover" src="{{ post.featured_images[0].path|resize(900) }}" alt="{{ post.featured_images[0].description }}">
+                            </picture>
+                        </a>
+                    {% endif %}
+                    <p class="excerpt">{{ post.summary|raw }}</p>
+                    <a href="/blog/post/{{ post.slug }}" class="read-more">{{ 'Continue reading'|_ }}</a>
+                </div>
+            {% else %}
+                <div class="home__blog-item small">
+                    <div class="photo">
+                        {% if post.featured_images.count %}
+                            <a href="/blog/post/{{ post.slug }}">
+                                <picture class="bg-cover">
+                                    <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(900) }}">
+                                    <img class="bg-cover" src="{{ post.featured_images[0].path|resize(900) }}" alt="{{ post.featured_images[0].description }}">
+                                </picture>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="text">
+                        <!-- <p class="info">
+                            {{ 'Posted'|_ }}
+                            {% if post.categories.count %} 
+                                {{ 'in'|_ }} 
+                            {% endif %}
+                            {% for category in post.categories %}
+                                <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                            {{ 'on'|_ }} {{ post.published_at|date('F jS, Y') }}
+                        </p> -->
+                        <h3>
+                            <a href="/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
+                        </h3>
+                        <p class="excerpt">{{ post.summary|raw }}</p>
+                        <a href="/blog/post/{{ post.slug }}" class="read-more">{{ 'Continue reading'|_ }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            {{ noPostsMessage }}
+        {% endfor %}
+    </main>
+
+</div>
+
+{% if posts.lastPage > 1 %}
+    <ul class="pagination">
+        {% if posts.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..posts.lastPage %}
+            <li class="{{ posts.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if posts.lastPage > posts.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
