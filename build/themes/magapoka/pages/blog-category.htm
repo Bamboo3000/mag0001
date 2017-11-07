@@ -28,29 +28,7 @@ function onEnd()
 
 <div class="container home__container">
         
-    <aside class="home__sidebar">
-        <div class="searchbox">
-            <i class="material-icons search-btn" aria-hidden="true" onclick="openSearch(this)">search</i>
-            <form 
-                class="search-field" 
-                id="search-field-general"
-                data-request="onSearchRedirect"
-            >
-                <input type="search" name="search-input" id="search-field-general-input" placeholder="{{ 'Job search'|_ }}" onblur="hideSearch()" tabindex="-1">
-                <input type="submit" style="display:none;">
-            </form>
-        </div>
-        <div class="categories">
-            {% if blogCategories.categories %}
-                <ul class="category-list">
-                    {% partial blogCategories ~ "::items"
-                        categories = blogCategories.categories
-                        currentCategorySlug = blogCategories.currentCategorySlug
-                    %}
-                </ul>
-            {% endif %}
-        </div>
-    </aside>
+    {% partial 'aside-general' %}
 
     <main class="home__blog">
         {% for post in posts %}
