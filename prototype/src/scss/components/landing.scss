@@ -9,7 +9,7 @@
 	&__blog {
 		flex-basis: 75%;
 		position: relative;
-		padding-right: 20px;
+		padding-left: 20px;
 
 		&-item {
 			position: relative;
@@ -17,9 +17,22 @@
 			padding-bottom: 15px;
 			margin-bottom: 15px;
 			border-bottom: 1px solid black;
+			text-align: center;
+
+			&.small {
+				display: flex;
+				flex-wrap: nowrap;
+				border: none;
+
+				.photo,
+				.text {
+					flex-basis: 50%;
+				}
+
+			}
 
 			h3 {
-				font-family: 'Josefin Sans', sans-serif;
+				// font-family: 'Josefin Sans', sans-serif;
 				font-size: 42px;
 				font-weight: 700;
 				margin: 0 0 15px 0;
@@ -76,9 +89,10 @@
 	&__sidebar {
 		flex-basis: 25%;
 		position: relative;
-		padding-left: 20px;
+		padding-right: 20px;
 		height: 100vh;
-		border-left: 1px solid black;
+		border-right: 1px solid black;
+		text-align: center;
 	}
 
 }

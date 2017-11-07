@@ -14,22 +14,37 @@ items:
             cssClass: ''
             isExternal: '0'
     -
-        title: 'About me'
+        title: Food
         nesting: '0'
-        type: static-page
+        type: blog-category
         code: ''
-        reference: about-me
+        reference: '3'
+        cmsPage: blog-category
         replace: '0'
         viewBag:
             isHidden: '0'
             cssClass: ''
             isExternal: '0'
     -
-        title: Contact
+        title: Lifestyle
+        nesting: '0'
+        type: blog-category
+        code: ''
+        reference: '2'
+        cmsPage: blog-category
+        replace: '0'
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: 'About me'
         nesting: '0'
         type: static-page
+        url: ''
         code: ''
-        reference: contact
+        reference: about-me
+        cmsPage: ''
         replace: '0'
         viewBag:
             isHidden: '0'
