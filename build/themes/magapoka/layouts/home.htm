@@ -45,14 +45,10 @@ categoryPage = "blog/category"
             {% if loop.first %}
                 <div class="home__blog-item">
                     <p class="info">
-                        {{ 'Posted'|_ }}
-                        {% if post.categories.count %} 
-                            {{ 'in'|_ }} 
-                        {% endif %}
                         {% for category in post.categories %}
                             <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
                         {% endfor %}
-                        {{ 'on'|_ }} {{ post.published_at|date('F jS, Y') }}
+                        {{ post.published_at|date('F jS, Y') }}
                     </p>
                     <h3>
                         <a href="/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
