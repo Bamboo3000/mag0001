@@ -70,7 +70,14 @@
                 line-height: 1.66;
             }
 
-        }
+            img {
+                min-width: 1000px;
+                transform: translateX(-50%);
+                margin-left: 50%;
+
+            }
+
+        }   
 
     }
 
