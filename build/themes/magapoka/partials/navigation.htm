@@ -1,12 +1,7 @@
 <nav role="navigation" class="main-navigation">
-	<div class="container">
-		<div class="top">
-			<a href="{{ url('/') }}" class="logo">
-				<object type="image/svg+xml" data="{{ 'assets/img/logo1.svg'|theme }}"></object>
-			</a>
-		</div>
-		<div class="bottom">
-			{% partial 'menu-items' items=mainMenu.menuItems %}
-		</div>
-	</div>
+	<a href="{{ url('/') }}" class="logo">
+		<object type="image/svg+xml" data="{{ 'assets/img/logo1.svg'|theme }}"></object>
+	</a>
+	{% partial 'menu-items' items=mainMenu.menuItems %}
+	<div class="bio"></div>
 </nav>
