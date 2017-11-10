@@ -45,8 +45,8 @@ categoryPage = "blog/category"
                     {% if post.featured_images.count %}
                         <a href="/blog/post/{{ post.slug }}">
                             <picture class="bg-cover">
-                                <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(1920, 1200) }}">
-                                <img class="bg-cover" src="{{ post.featured_images[0].path|resize(1920, 1200) }}" alt="{{ post.featured_images[0].description }}">
+                                <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(1920, 1080) }}">
+                                <img class="bg-cover" src="{{ post.featured_images[0].path|resize(1920, 1080) }}" alt="{{ post.featured_images[0].description }}">
                             </picture>
                         </a>
                     {% endif %}
@@ -68,8 +68,8 @@ categoryPage = "blog/category"
                     {% if post.featured_images.count %}
                         <a href="/blog/post/{{ post.slug }}">
                             <picture class="bg-cover">
-                                <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(900) }}">
-                                <img class="bg-cover" src="{{ post.featured_images[0].path|resize(900) }}" alt="{{ post.featured_images[0].description }}">
+                                <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(900, 600) }}">
+                                <img class="bg-cover" src="{{ post.featured_images[0].path|resize(900, 600) }}" alt="{{ post.featured_images[0].description }}">
                             </picture>
                         </a>
                     {% endif %}
