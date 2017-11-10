@@ -1,5 +1,5 @@
 title = "Blog Category"
-layout = "blog-category"
+layout = "default"
 url = "/blog/category/:slug/:page?"
 
 [blogPosts]
@@ -33,7 +33,7 @@ function onEnd()
             {% if loop.first %}
                 <div class="home__blog-item">
                     {% if post.featured_images.count %}
-                        <a href="/blog/post/{{ post.slug }}">
+                        <a href="{{ url('/') }}/blog/post/{{ post.slug }}">
                             <picture class="bg-cover">
                                 <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(1920, 1080) }}">
                                 <img class="bg-cover" src="{{ post.featured_images[0].path|resize(1920, 1080) }}" alt="{{ post.featured_images[0].description }}">
@@ -43,12 +43,12 @@ function onEnd()
                     <div class="home__blog-item-text">
                         <p class="info">
                             {% for category in post.categories %}
-                                <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                                <a href="{{ url('/') }}/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
                             {% endfor %}
                             {{ post.published_at|date('F jS, Y') }}
                         </p>
                         <h3>
-                            <a href="/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
+                            <a href="{{ url('/') }}/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
                         </h3>
                         <p class="excerpt">{{ post.summary|raw }}</p>
                     </div>
@@ -56,7 +56,7 @@ function onEnd()
             {% else %}
                 <div class="home__blog-item small">
                     {% if post.featured_images.count %}
-                        <a href="/blog/post/{{ post.slug }}">
+                        <a href="{{ url('/') }}/blog/post/{{ post.slug }}">
                             <picture class="bg-cover">
                                 <source media="(min-width: 768px)" srcset="{{ post.featured_images[0].path|resize(960, 600) }}">
                                 <img class="bg-cover" src="{{ post.featured_images[0].path|resize(960, 600) }}" alt="{{ post.featured_images[0].description }}">
@@ -66,12 +66,12 @@ function onEnd()
                     <div class="home__blog-item-text">
                         <p class="info">
                             {% for category in post.categories %}
-                                <a href="/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                                <a href="{{ url('/') }}/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
                             {% endfor %}
                             {{ post.published_at|date('F jS, Y') }}
                         </p>
                         <h3>
-                            <a href="/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
+                            <a href="{{ url('/') }}/blog/post/{{ post.slug }}" title="{{ post.title }}">{{ post.title }}</a>
                         </h3>
                         <p class="excerpt">{{ post.summary|raw }}</p>
                     </div>

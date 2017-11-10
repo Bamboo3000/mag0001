@@ -1,5 +1,5 @@
 description = "Blog detail page"
-layout = "blog-detail"
+layout = "default"
 url = "/blog/post/:slug"
 
 [blogPost]
@@ -33,7 +33,7 @@ categoryPage = "blog/category"
                         {{ post.published_at|date('F jS, Y') }}
                         {% if post.categories.count %}
                             {% for category in post.categories %}
-                                <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                                <a href="{{ url('/') }}/blog/category/{{ category.slug }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
                             {% endfor %}
                         {% endif %}
                     </p>
