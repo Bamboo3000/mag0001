@@ -2,14 +2,14 @@
 ==
 <ul class="menu">
     {% for item in items %}
-        <li class="{{ item.isActive or item.isChildActive ? 'active' : '' }}">
-            <a href="{{ item.url }}" title="{{ item.title|_ }}" {{ item.items ? 'class="has-children"' : null }}>{{ item.title|_ }}</a>
+        <li {{ item.isActive or item.isChildActive ? 'class="active"' : '' }}>
+            <a href="{{ item.url }}" {{ item.items ? 'class="has-children"' : null }}>{{ item.title|_ }}</a>
             {% if item.items %}
                 <i class="material-icons" onclick="showSubMenu(this)">arrow_drop_down</i>
                 <ul class="sub">
                     {% for item in item.items %}
-                        <li class="{{ item.isActive ? 'active' : '' }}">
-                            <a href="{{ item.url }}" title="{{ item.title|_ }}">
+                        <li {{ item.isActive ? 'class="active"' : '' }}>
+                            <a href="{{ item.url }}">
 				                {{ item.title|_ }}
 				            </a>
                         </li>
@@ -18,4 +18,8 @@
             {% endif %}
         </li>
     {% endfor %}
+    <div class="menu__language">
+        <a href="#" {{ activeLocale == 'pl' ? 'class="active"' }} data-request="onSwitchLocale" data-request-data="locale: 'pl'" title="Polski"><span>PL</span></a>
+        <a href="#" {{ activeLocale == 'en' ? 'class="active"' }} data-request="onSwitchLocale" data-request-data="locale: 'en'" title="English"><span>EN</span></a>
+    </div>
 </ul>

@@ -1,5 +1,5 @@
 <nav role="navigation" class="main-navigation">
-	<a href="{{ url('/') }}" class="logo">
+	<a href="{{ url('/') }}" class="logo" title="{{ 'Maga Poka logo and link to the homa page.'|_ }}">
 		<object type="image/svg+xml" data="{{ 'assets/img/logo1.svg'|theme }}"></object>
 	</a>
 	{% partial 'menu-items' items=mainMenu.menuItems %}
@@ -9,19 +9,19 @@
 	</div> -->
 	<div class="socials">
 		<li>
-			<a href="">
+			<a href="" title="{{ 'View my Facebook page!'|_ }}">
 				<i class="fa fa-facebook"></i>
 			</a>
-			<a href="">
+			<a href="" title="{{ 'Visit my Instagram!'|_ }}">
 				<i class="fa fa-instagram"></i>
 			</a>
-			<a href="">
+			<a href="" title="{{ 'Checkout my Pinterest board!'|_ }}">
 				<i class="fa fa-pinterest"></i>
 			</a>
-			<a href="mailto:hello@magapoka.com">
+			<a href="mailto:hello@magapoka.com" title="{{ 'Send me an email!'|_ }}">
 				<i class="fa fa-envelope-o"></i>
 			</a>
-			<a href="{{ url('/') }}/rss">
+			<a href="{{ url('/') }}/rss" title="{{ 'RSS Feed'|_ }}">
 				<i class="fa fa-rss"></i>
 			</a>
 		</li>
