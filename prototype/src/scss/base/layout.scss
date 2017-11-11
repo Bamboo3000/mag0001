@@ -90,6 +90,14 @@ section {
 		padding-left: 240px;
 	}
 
+	@media(max-width: 1023px) {
+		padding-left: 200px;
+	}
+
+	@media(max-width: 960px) {
+		padding-left: 40px;
+	}
+
 }
 
 #menuCloserButton {
