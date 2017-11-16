@@ -132,6 +132,12 @@
 					max-width: calc(100% - 40px);
 				}
 
+				@media(max-width: 800px) {
+					bottom: 10px;
+					left: 10px;
+					max-width: calc(100% - 20px);
+				}
+
 				h3 {
 					font-size: 42px;
 					font-weight: 700;
