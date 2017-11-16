@@ -15,76 +15,6 @@
 // else window.addEventListener('load', loadDeferredStyles);
 //-------------------- /Load some deferred styles --------------------//
 
-function hasClass(el, cls) 
-{
-	return el.className && new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className);
-}
-
-function openSearch($el) 
-{
-	$el.classList.add('active');
-	document.getElementById('search-field-general').classList.add('active');
-	document.getElementById('header-social-links').classList.add('active');
-	setTimeout(function() {
-		document.getElementById('search-field-general-input').focus();
-	}, 500);
-}
-
-function hideSearch() 
-{
-	document.getElementById('search-field-general').classList.remove('active');
-	document.getElementById('header-social-links').classList.remove('active');
-	document.getElementsByClassName('search-btn')[0].classList.remove('active');
-}
-
-function showMenu($el) 
-{
-	if(hasClass($el, 'active')) {
-		hideMenu();
-	} else {
-		$el.classList.add('active');
-		document.getElementsByTagName('body')[0].classList.add('menu-active');
-		document.getElementsByTagName('html')[0].classList.add('menu-active');
-		document.getElementById('wrapper').classList.add('menu-active');
-		setTimeout(function() {
-			document.getElementById('wrapper').insertAdjacentHTML('afterend', '<div id="menuCloserButton"></div>');
-			document.getElementById('menuCloserButton').addEventListener('click', hideMenu);
-		}, 300);
-	}
-}
-
-function hideMenu() 
-{
-	var elem = document.getElementById('menuCloserButton');
-	document.getElementById('menu-btn').classList.remove('active');
-	document.getElementsByTagName('body')[0].classList.remove('menu-active');
-	document.getElementsByTagName('html')[0].classList.remove('menu-active');
-	document.getElementById('wrapper').classList.remove('menu-active');
-	elem.parentNode.removeChild(elem);
-}
-
-function showSubMenu($el)
-{
-	if(hasClass($el.nextElementSibling, 'active')) {
-		$el.classList.remove('active');
-		$el.nextElementSibling.classList.remove('active');
-	} else {
-		$el.classList.add('active');
-		$el.nextElementSibling.classList.add('active');
-	}
-}
-
-function checkboxLabel($el) 
-{
-	if($el.getElementsByTagName('input')[0].checked === true) {
-		$el.classList.remove('active');
-		$el.getElementsByTagName('input')[0].checked = false;
-	} else {
-		$el.classList.add('active');
-		$el.getElementsByTagName('input')[0].checked = true;
-	}
-}
-
 function siemaAutoplay($time, $siema, $carousel) 
 {
 	var timer = setInterval(function() {
@@ -122,12 +52,6 @@ function loadCarousel()
 		});
 		siemaAutoplay(5000, mySiema, siema);
 	}
-}
-
-function getFileName($input, $el)
-{
-	$text = $input.value;
-	document.getElementById($el).innerHTML = $text.split('\\')[2];
 }
 
 function initContactMap()
@@ -245,43 +169,25 @@ function initContactMap()
 	);
 }
 
-function menuStick()
+function toggleMenu()
 {
-	var $menu = $('.main-navigation');
-	var $menuH = $menu.outerHeight();
-	var $windowH = $(window).height();
-	$(window).on('scroll', function(e) {
-		if($(window).scrollTop() >= ($menuH)) {
-			$menu.stop(true, true).addClass('smaller');
-		} else if($(window).scrollTop() < ($menuH)) {
-			$menu.stop(true, true).removeClass('smaller');
+	$('#toggleMenu').on('click', function() {
+		$(this).parent().toggleClass('toggled');
+		$('#wrapper').toggleClass('menuOpen');
+	});
+	$('#wrapper, #wrapper *').on('click', function(e) {
+		if($('#wrapper').hasClass('menuOpen')) {
+			e.preventDefault();
+			$('nav.main-navigation').toggleClass('toggled'); 
+			$(this).toggleClass('menuOpen');
 		}
 	});
 }
-function positionAware()
-{
-	$('.btn-position-aware')
-		.on('mouseenter', function(e) {
-			var parentOffset = $(this).offset(),
-				relX = e.pageX - parentOffset.left,
-				relY = e.pageY - parentOffset.top;
-			$(this).find('.effect').css({top:relY, left:relX})
-		})
-		.on('mouseleave', function(e) {
-			var parentOffset = $(this).offset(),
-				relX = e.pageX - parentOffset.left,
-				relY = e.pageY - parentOffset.top;
-			$(this).find('.effect').css({top:relY, left:relX})
-		});
-}
 
 $(document).ready(function() {
-	menuStick();
-	positionAware();
+	toggleMenu();
 });
 
 $(window).on('resize', function() {
-	setTimeout(function() {
-		menuStick();
-	}, 300);
+
 });

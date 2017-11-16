@@ -15,7 +15,7 @@ $bottomH: 70px;
 	padding: 20px;
 	background-color: white;
 	z-index: 999999999;
-	transition: all 500ms cubic-bezier(0.0, 0.0, 0.2, 1);
+	transition: all 333ms cubic-bezier(0.0, 0.0, 0.2, 1);
 
 	@media(max-width: 1360px) {
 		padding: 15px;
@@ -33,19 +33,30 @@ $bottomH: 70px;
 
 	@media(max-width: 960px) {
 		left: -200px;
+
+		&.toggled {
+			left: 0;
+
+			#toggleMenu {
+				right: -40px;
+			}
+
+		}
+
 	}
 
-	#menuOpen {
+	#toggleMenu {
 		width: 40px;
 		height: 40px;
 		position: absolute;
 		display: none;
 		top: 10px;
-		right: -40px;
+		right: -50px;
 		background-color: white;
 		z-index: 999999999;
 		text-align: center;
 		line-height: 40px;
+		transition: all 333ms cubic-bezier(0.0, 0.0, 0.2, 1);
 
 		@media(max-width: 960px) {
 			display: block;
