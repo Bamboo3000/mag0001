@@ -25,17 +25,13 @@ var src = {
     img: 'src/img',
     fonts: 'src/fonts',
     html: 'build',
-    public: '../public',
-    publicJs: './public/assets/js',
-    publicCss: './public/assets/css',
-    publicImg: './public/assets/img',
-    publicFonts: './public/assets/fonts',
     buildJs: './build/assets/js',
     buildCss: './build/assets/css',
     buildImg: './build/assets/img',
     buildFonts: './build/assets/fonts',
     portJs: '../build/themes/magapoka/assets/js',
-    portCss: '../build/themes/magapoka/assets/css'
+    portCss: '../build/themes/magapoka/assets/css',
+    portImg: '../build/themes/magapoka/assets/img'
 };
 
 var production = false;
@@ -68,7 +64,6 @@ gulp.task('build-sass', function() {
         .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
         .pipe(autoprefixer('last 10 versions'))
         .pipe(plugins.minifyCss())
-        .pipe(gulp.dest(src.publicCss))
         .pipe(gulp.dest(src.buildCss))
         .pipe(gulp.dest(src.portCss))
 });
@@ -96,38 +91,18 @@ gulp.task('build-js', function () {
         .pipe(plugins.concat('app.js'))
         .pipe(plugins.uglify())
         .pipe(plugins.size())
-        .pipe(gulp.dest(src.publicJs))
         .pipe(gulp.dest(src.buildJs))
         .pipe(gulp.dest(src.portJs))
 });
 
-/**
- * Build SPRITES
- * @return Return a merged stream to handle both `end` events
- */
-gulp.task('sprite', function () {
-  var spriteData = gulp.src('src/img/sprites/*.png').pipe(spritesmith({
-    retinaSrcFilter: 'src/img/sprites/*@2x.png',
-    retinaImgName: 'gb-sprite@2x.png',
-    imgName: 'gb-sprite.png',
-    cssName: 'sprite.css'
-  }));
-  var imgStream = spriteData.img
-    .pipe(gulp.dest(src.publicImg))
-    .pipe(gulp.dest(src.buildImg));
-  var cssStream = spriteData.css
-    .pipe(gulp.dest('src/scss/other/'));
-
-  return merge(imgStream, cssStream);
-});
 
 /**
  * Task: Copy images to build and public folder
  */
 gulp.task('build-img', function() {
     return gulp.src([src.img + '/*', src.img + '/**/*'])
-        .pipe(gulp.dest(src.publicImg))
         .pipe(gulp.dest(src.buildImg))
+        .pipe(gulp.dest(src.portImg))
 });
 
 
@@ -137,7 +112,6 @@ gulp.task('build-img', function() {
 
 gulp.task('build-fonts', function() {
     return gulp.src([src.fonts + '/*', src.fonts + '/**/*'])
-        .pipe(gulp.dest(src.publicFonts))
         .pipe(gulp.dest(src.buildFonts))
 });
 
@@ -173,6 +147,16 @@ gulp.task('watch-html', function () {
 });
 
 /**
+ * Task: Individually Watch IMG
+ */
+gulp.task('watch-img', function () {
+    console.log(hint('\n --------- Watching IMG Files ------------------------------------------->>> \n'));
+    gulp
+    .watch([src.root + '/*.jpg', src.root + '/*.png', src.root + '/*.svg', src.root + '/*.gif', src.root + '/**/*.jpg', src.root + '/**/*.png', src.root + '/**/*.svg', src.root + '/**/*.gif',], ['build-img'])
+    .once('change', log);
+});
+
+/**
  * Task: Clean 
  */
 gulp.task('clean', function () {
@@ -198,4 +182,4 @@ gulp.task('default', ['build']);
 /**
  * Task: Watch all 
  */
-gulp.task('watch', ['watch-js', 'watch-sass', 'watch-html']);
+gulp.task('watch', ['watch-js', 'watch-sass', 'watch-html', 'watch-img']);
